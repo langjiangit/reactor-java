@@ -1,7 +1,10 @@
 package cn.shuaitian.reactor.net.base;
 
+import java.io.IOException;
 import java.nio.channels.SelectableChannel;
 import java.nio.channels.SelectionKey;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 
 public class ServerChannel extends Channel {
 	private EventCallback acceptableCallback;
@@ -47,6 +50,12 @@ public class ServerChannel extends Channel {
 	public void enableConnect(){
 		events |= SelectionKey.OP_CONNECT;
 		update();
+	}
+	
+	public SocketChannel accept() throws IOException{
+		ServerSocketChannel ssc = (ServerSocketChannel) jdkChannel;
+		SocketChannel ret = ssc.accept();
+		return ret;
 	}
 
 }

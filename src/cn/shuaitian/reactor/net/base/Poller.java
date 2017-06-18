@@ -9,6 +9,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * 理论上Poll对象只对EventLoop可见，也就是说其生命周期是由EventLoop管理（貌似java对象生命周期都是由垃圾回收说了算的~）
+ * @author shuaitian
+ *
+ */
 public class Poller {
 	private EventLoop eventLoop;
 	private Selector selector;
@@ -59,6 +64,10 @@ public class Poller {
 
 	public Selector getSelector() {
 		return this.selector;
+	}
+	
+	public void wakeup(){
+		selector.wakeup();
 	}
 	
 }
